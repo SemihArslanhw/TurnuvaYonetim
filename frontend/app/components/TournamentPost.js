@@ -6,6 +6,14 @@ const TournamentPost = () => {
   const tournamentPosts = [
     { id: 1, title: "Tournament 1", content: "Description for Tournament 1" },
     { id: 2, title: "Tournament 2", content: "Description for Tournament 2" },
+    { id: 3, title: "Tournament 3", content: "Description for Tournament 3" },
+    { id: 4, title: "Tournament 4", content: "Description for Tournament 4" },
+    { id: 5, title: "Tournament 5", content: "Description for Tournament 5" },
+    { id: 6, title: "Tournament 6", content: "Description for Tournament 6" },
+    { id: 7, title: "Tournament 7", content: "Description for Tournament 7" },
+    { id: 8, title: "Tournament 8", content: "Description for Tournament 8" },
+    { id: 9, title: "Tournament 9", content: "Description for Tournament 9" },
+    { id: 10, title: "Tournament 10", content: "Description for Tournament 10" },
     // Add more tournament posts as needed
   ];
 
