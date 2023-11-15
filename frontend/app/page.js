@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 export default function Home() {
   return (
     <div className="flex justify-center flex-col w-full items-center">
+
       <Navbar />
       <div className="w-2/3 h-full flex flex-row">
         {/* Left Sidebar - User Info */}

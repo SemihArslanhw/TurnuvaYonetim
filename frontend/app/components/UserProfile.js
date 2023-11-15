@@ -1,25 +1,28 @@
+"use client";
 // components/UserProfile.js
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const UserProfile = () => {
   // Replace this with your actual user profile data
-  const user = {
-    username: "example_user",
-    avatar: "https://placekitten.com/100/100", // Replace with the actual URL of the user's avatar
-    // Add more user profile data as needed
-  };
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("user"));
+    console.log(data);
+    setUser(data.user);
+  }, []);
 
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">User Profile</h2>
       <img
-        src={user.avatar}
-        alt={`${user.username}'s avatar`}
+        src="https://placekitten.com/100/100"
+        alt={`${user.userName}'s avatar`}
         className="mb-2 rounded-full"
         width={100}
         height={100}
       />
-      <p className="text-lg font-semibold">{user.username}</p>
+      <p className="text-lg font-semibold">{user.userName}</p>
       {/* Add more user profile information as needed */}
     </div>
   );

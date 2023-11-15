@@ -1,4 +1,4 @@
-const Matches = require('../models/match');
+const Matches = require('../models/matches.js');
 const router = require('express').Router();
 
 router.post('/create', async (req, res) => {
