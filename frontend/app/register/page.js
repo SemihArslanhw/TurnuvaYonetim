@@ -25,6 +25,9 @@ const handleSubmit = async (e) => {
 
   // Create FormData object
   const formData = new FormData();
+  formData.append("file", profilePicture);
+  formData.append("name", e.target.email.value + ".jpg");
+
 
   let datas = {
     userName: e.target.username.value,
@@ -32,6 +35,20 @@ const handleSubmit = async (e) => {
     password: e.target.password.value,
     profilePicture: "profilePicture",
   };
+
+  console.log(profilePicture)
+
+  // fetch("http://localhost:5000/api/upload", {
+  //   method: "POST",
+  //   file: formData,
+  // })
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     console.log(data);
+  //   })
+  //   .catch((err) => {
+  //     toast.error("Error uploading image");
+  //   });
 
   fetch("http://localhost:5000/api/user/register", {
     method: "POST",
@@ -55,7 +72,9 @@ const handleSubmit = async (e) => {
       } else {
         toast.error("User already exists");
       }
-    });
+    }).catch((err) => {
+      toast.error("Error creating user");
+    })
 };
   return (
     <div className="flex items-center justify-center h-screen">

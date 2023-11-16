@@ -1,23 +1,38 @@
 // components/PopularTournaments.js
 import React from "react";
+import Link from "next/link";
 
 const PopularTournaments = () => {
+
   // Replace this with your actual popular tournament data
   const popularTournaments = [
-    { id: 1, name: "Popular Tournament 1", followers: 1000 },
-    { id: 2, name: "Popular Tournament 2", followers: 800 },
+    { id: 1, name: "Halı saha", followers: 1000, img: "https://picsum.photos/200" },
+    { id: 2, name: "Şirinler halı saha", followers: 800, img: "https://picsum.photos/200" },
     // Add more popular tournaments as needed
   ];
+
 
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">Popular Tournaments</h2>
-      {popularTournaments.map((tournament) => (
-        <div key={tournament.id} className="mb-4 p-4 border rounded-md">
-          <h3 className="text-lg font-semibold">{tournament.name}</h3>
-          <p>Followers: {tournament.followers}</p>
-        </div>
-      ))}
+      <table>
+        <tbody>
+          {popularTournaments.map((tournament) => (
+            <tr key={tournament.id}>
+              <td className="border px-4 py-2">
+                <img src={tournament.img} alt={tournament.name} />
+              </td>
+              <td className="border px-4 py-2">
+                <Link href={`/tournament/${tournament.id}`}>
+                  {tournament.name}
+                </Link>
+              </td>
+              <td className="border px-4 py-2">{tournament.followers} followers</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
     </div>
   );
 };

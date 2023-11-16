@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "datatables": "^1.10.18",
+    "datatables.net-dt": "^1.13.8",
     "next": "14.0.1",
     "react": "^18",
     "react-dom": "^18",

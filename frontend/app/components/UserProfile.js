@@ -9,7 +9,7 @@ const UserProfile = () => {
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("user"));
     console.log(data);
-    setUser(data.user);
+    setUser(data?.user);
   }, []);
 
   return (
@@ -17,12 +17,12 @@ const UserProfile = () => {
       <h2 className="text-xl font-bold mb-4">User Profile</h2>
       <img
         src="https://placekitten.com/100/100"
-        alt={`${user.userName}'s avatar`}
+        alt={`${user?.userName}'s avatar`}
         className="mb-2 rounded-full"
         width={100}
         height={100}
       />
-      <p className="text-lg font-semibold">{user.userName}</p>
+      <p className="text-lg font-semibold">{user?.userName}</p>
       {/* Add more user profile information as needed */}
     </div>
   );

@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const router = require('express').Router();
+const bcrypt = require("bcrypt");
+
 
 const generateVerificationToken = (user) => { // Pass 'user' as a parameter
   return jwt.sign({
@@ -32,12 +34,16 @@ const validateToken = (req, res, next) => {
 
 router.post('/register', async (req, res) => {
   try {
-    const { userName, email, password, profilePicture } = req.body;
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+    const { userName, email, profilePicture } = req.body;
 
     const user = await User.create({
       userName,
       email,
-      password,
+      password: hashedPassword,
       profilePicture
     });
 
@@ -50,22 +56,25 @@ router.post('/register', async (req, res) => {
   }
 });
 
-router.get('/login', async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
+//LOGIN
+router.post("/login", async (req, res) => {
+  console.log(req.body)
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    !user && res.status(404).json("user not found");
 
-  if (!user) {
-    return res.status(401).json({ message: 'Invalid credentials' });
+    const validPassword = await bcrypt.compare(req.body.password, user.password)
+    !validPassword && res.status(400).json("wrong password")
+   
+
+    const token = jwt.sign({ id: user._id }, "semih" , { expiresIn: "5d" });
+
+    console.log(validPassword)
+    return res.status(200).json({result:user, token: token});
+  } catch (err) {
+    console.log(err)
+    return res.status(500)
   }
-
-  const isMatch = await user.comparePassword(req.body.password);
-
-  if (!isMatch) {
-    return res.status(401).json({ message: 'Invalid credentials' });
-  }
-
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-
-  return res.status(200).json({ message: 'User logged in', token });
 });
 
 //get all users

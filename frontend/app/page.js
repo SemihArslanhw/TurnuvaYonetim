@@ -1,11 +1,30 @@
+"use client"
+
 // Import necessary components and styles
 import "tailwindcss/tailwind.css";
 import TournamentPost from "./components/TournamentPost"; // You'll need to create this component
 import PopularTournaments from "./components/PopularTournaments"; // You'll need to create this component
 import UserProfile from "./components/UserProfile"; // You'll need to create this component
 import Navbar from "./components/Navbar";
+import { useEffect } from "react";
 
 export default function Home() {
+
+
+  useEffect(() => {
+
+    try {
+      const data = JSON.parse(localStorage.getItem("user"));
+      console.log(data);
+      if (!data) {
+        window.location.href = "/login";
+      }
+    } catch (error) {
+      window.location.href = "/login";
+    }
+    
+  }, []);
+
   return (
     <div className="flex justify-center flex-col w-full items-center">
 

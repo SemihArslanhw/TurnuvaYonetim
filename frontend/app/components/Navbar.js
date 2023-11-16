@@ -8,18 +8,20 @@ export default function Navbar() {
       <div className="flex items-center justify-between w-2/3">
         {/* Logo */}
         <Link className="text-white text-xl font-bold" href="/">
-          Your Logo
+          Turnuvam
         </Link>
 
         {/* Navigation Links */}
         <ul className="flex space-x-4">
-          {pages.map((page, index) => (
-            <li key={index}>
-              <Link className="text-white hover:underline" href={`/${page.toLowerCase()}`}>
-                {page}
-              </Link>
-            </li>
-          ))}
+          <Link href="/createtournament">
+            <li className="text-white">Create Tournament</li>
+          </Link>
+          <Link href="/myfollowings">
+            <li className="text-white">My Followings</li>
+          </Link>
+          <Link href="/login">
+            <li className="text-white">Logout</li>
+          </Link>
         </ul>
       </div>
     </nav>
