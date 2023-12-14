@@ -5,10 +5,6 @@ const tournamentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    image:{
-        type: String,
-        required: true
-    },
     description:{
         type: String
     },
@@ -21,11 +17,15 @@ const tournamentSchema = new mongoose.Schema({
         default: Date.now
     },
     startDate:{
-        type: Date,
+        type: String,
         required: true
     },
+    followers:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     endDate:{
-        type: Date,
+        type: String,
         required: true
     },
 

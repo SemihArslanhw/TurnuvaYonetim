@@ -1,29 +1,73 @@
-// components/TournamentPost.js
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const TournamentPost = () => {
-  // Replace this with your actual tournament post data
-  const tournamentPosts = [
-    { id: 1, title: "Tournament 1", content: "Description for Tournament 1" },
-    { id: 2, title: "Tournament 2", content: "Description for Tournament 2" },
-    { id: 3, title: "Tournament 3", content: "Description for Tournament 3" },
-    { id: 4, title: "Tournament 4", content: "Description for Tournament 4" },
-    { id: 5, title: "Tournament 5", content: "Description for Tournament 5" },
-    { id: 6, title: "Tournament 6", content: "Description for Tournament 6" },
-    { id: 7, title: "Tournament 7", content: "Description for Tournament 7" },
-    { id: 8, title: "Tournament 8", content: "Description for Tournament 8" },
-    { id: 9, title: "Tournament 9", content: "Description for Tournament 9" },
-    { id: 10, title: "Tournament 10", content: "Description for Tournament 10" },
-    // Add more tournament posts as needed
-  ];
+
+  const [tournamentPosts, setTournamentPosts] = React.useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/tournament/all")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setTournamentPosts(data.tournaments);
+      });
+  }, []);
+
+ const handleFollow = (id) => {
+  const userString = localStorage.getItem('user');
+  const userObject = JSON.parse(userString);
+
+  fetch(`http://localhost:5000/api/tournament/follow/${id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user: userObject,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      toast.success(data.message);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+};
+
 
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">Tournament Posts</h2>
       {tournamentPosts.map((post) => (
-        <div key={post.id} className="mb-4 p-4 border rounded-md">
-          <h3 className="text-lg font-semibold">{post.title}</h3>
-          <p>{post.content}</p>
+        <div key={post._id} className="mb-4 p-4 border relative rounded-md">
+          <button onClick={()=> handleFollow(post._id)} className="absolute top-5 right-5 bg-blue-500 border text-white p-2 rounded-md ">
+            Follow
+          </button>
+          <div className="w-full h-48 mb-4">
+            <img
+              src="https://cdn.ntvspor.net/d81955833d304ca9a163cf7cd30d37fd.jpg?crop=0,16,941,643&w=1066&h=800&mode=crop"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="w-full h-full">
+          <h3 className="text-lg font-semibold">{post.name}</h3>
+          <p>{post.description}</p>
+          </div>
+          <div className="w-full flex justify-between items-end">
+          <a href={`/tournament/${post._id}`} className="text-blue-500">
+            View
+          </a>
+          <div>
+            <p>
+              {post.startDate} - {post.endDate}
+            </p>
+          </div>
+        </div>
         </div>
       ))}
     </div>
