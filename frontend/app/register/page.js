@@ -62,7 +62,14 @@ const handleSubmit = async (e) => {
       if (data.ok) {
         toast.success("User created successfully");
         data.json().then((user) => {
-        localStorage.setItem("user", JSON.stringify(user));
+        let converted = {
+          result: {},
+          token: "",
+        };
+        converted.result = user;
+        converted.token = user.token;
+        console.log(converted);
+        localStorage.setItem("user", JSON.stringify(converted));
         document.cookie = `token=${user.token}`;
         setTimeout(() => {
           window.location.href = "/";

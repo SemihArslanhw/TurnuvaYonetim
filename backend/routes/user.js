@@ -34,7 +34,7 @@ const validateToken = (req, res, next) => {
 
 router.post('/register', async (req, res) => {
   try {
-
+    console.log(req.body)
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
@@ -52,6 +52,7 @@ router.post('/register', async (req, res) => {
     return res.status(200).json({ message: 'User created', token, user });
     
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ error: error.message });
   }
 });

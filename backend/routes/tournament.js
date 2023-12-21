@@ -79,6 +79,7 @@ router.delete('/delete/:id', async (req, res) => {
 
 router.post('/follow/:id', async (req, res) => {
   console.log(req.body);
+  console.log(req.params.id);
   try {
     const tournament = await Tournament.findById(req.params.id);
 
@@ -86,11 +87,22 @@ router.post('/follow/:id', async (req, res) => {
       return res.status(404).json({ error: 'No tournament found' });
     }
 
-    tournament.followers.push(req.body.user.user._id);
+    tournament.followers.push(req.body.user._id);
 
     await tournament.save();
 
     return res.status(200).json({ message: 'Followed tournament', tournament });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+router.get('/getFollowedTournaments/:id', async (req, res) => {
+  try {
+    const tournaments = await Tournament.find({ followers: req.params.id });
+
+    return res.status(200).json({ tournaments });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

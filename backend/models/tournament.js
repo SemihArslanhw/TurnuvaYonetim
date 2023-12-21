@@ -28,7 +28,15 @@ const tournamentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-
+    teams:{
+        type: Array,
+        required: true
+    },
+    schedule:
+        {
+            type: Array,
+            required: true
+        },  
     })
 
 module.exports = mongoose.model('Tournament', tournamentSchema);

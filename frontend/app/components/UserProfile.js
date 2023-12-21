@@ -7,9 +7,9 @@ const UserProfile = () => {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("user"));
+    const data = JSON.parse(localStorage.getItem("user")).result;
     console.log(data);
-    setUser(data?.user);
+    setUser(data);
   }, []);
 
   return (
