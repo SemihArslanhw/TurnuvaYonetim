@@ -3,6 +3,7 @@ import './globals.css'
 import Link from 'next/link'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import 'tailwindcss/tailwind.css'
 
 const inter = Inter({ subsets: ['latin'] })
 

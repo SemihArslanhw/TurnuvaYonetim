@@ -4,7 +4,7 @@ const router = require('express').Router();
 router.post('/create', async (req, res) => {
   console.log(req.body);
   try {
-    const { name, image, description, startDate, endDate } = req.body;
+    const { name, image, description, startDate, endDate, teams, schedule } = req.body;
 
     const tournament = await Tournament.create({
       name,
@@ -12,10 +12,12 @@ router.post('/create', async (req, res) => {
       description,
       startDate,
       endDate,
+      teams,
+      schedule,
     });
 
     return res.status(200).json({ message: 'Tournament created', tournament });
-  } catch (error) {
+  } catch (error) {1
     console.log(error);
     return res.status(500).json({ error: error.message });
     

@@ -33,6 +33,8 @@ export default function TournamentCreate() {
       schedule: schedule
     };
 
+    console.log(datas);
+
     const res = fetch("http://localhost:5000/api/tournament/create", {
       method: "POST",
       headers: {
