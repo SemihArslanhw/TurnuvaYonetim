@@ -14,7 +14,8 @@ const PopularTournaments = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setPopularTournaments(data.tournaments);
+        const dscdata = data.tournaments.sort((a, b) => b.followers.length - a.followers.length);
+        setPopularTournaments(dscdata);
       });
   }, []);
 

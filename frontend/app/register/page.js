@@ -66,7 +66,7 @@ const handleSubmit = async (e) => {
           result: {},
           token: "",
         };
-        converted.result = user;
+        converted.result = user.user;
         converted.token = user.token;
         console.log(converted);
         localStorage.setItem("user", JSON.stringify(converted));

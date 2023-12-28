@@ -21,6 +21,7 @@ export default async function Login() {
     if (res.ok) {
       const user = await res.json();
       toast.success("Login successful");
+
       localStorage.setItem("user", JSON.stringify(user));
       document.cookie = `token=${user.token}`;
       setTimeout(() => {

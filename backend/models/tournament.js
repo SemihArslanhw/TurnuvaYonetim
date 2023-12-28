@@ -36,7 +36,11 @@ const tournamentSchema = new mongoose.Schema({
         {
             type: Array,
             required: true
-        },  
+        },
+    comments:
+    {
+        type: Array,
+    }  
     })
 
 module.exports = mongoose.model('Tournament', tournamentSchema);
